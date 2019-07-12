@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Strptime-related classes and functions.
 """
 import time
@@ -141,13 +140,13 @@ def array_strptime(object[:] values, object fmt,
                     iresult[i] = NPY_NAT
                     continue
                 raise ValueError("time data %r does not match "
-                                 "format %r (match)" % (values[i], fmt))
+                                 "format %r (match)" % (val, fmt))
             if len(val) != found.end():
                 if is_coerce:
                     iresult[i] = NPY_NAT
                     continue
                 raise ValueError("unconverted data remains: %s" %
-                                 values[i][found.end():])
+                                 val[found.end():])
 
         # search
         else:
@@ -157,7 +156,7 @@ def array_strptime(object[:] values, object fmt,
                     iresult[i] = NPY_NAT
                     continue
                 raise ValueError("time data %r does not match format "
-                                 "%r (search)" % (values[i], fmt))
+                                 "%r (search)" % (val, fmt))
 
         iso_year = -1
         year = 1900
@@ -363,7 +362,7 @@ def _getlang():
     return locale.getlocale(locale.LC_TIME)
 
 
-class LocaleTime(object):
+class LocaleTime:
     """Stores and handles locale-specific information related to time.
 
     ATTRIBUTES:
@@ -528,7 +527,7 @@ class TimeRE(dict):
             self.locale_time = locale_time
         else:
             self.locale_time = LocaleTime()
-        base = super(TimeRE, self)
+        base = super()
         base.__init__({
             # The " \d" part of the regex is to make %c from ANSI C work
             'd': r"(?P<d>3[0-1]|[1-2]\d|0[1-9]|[1-9]| [1-9])",

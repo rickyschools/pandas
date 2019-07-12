@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import pytest
 
 from pandas.util._move import BadMove, move_into_mutable_buffer, stolenbuf
@@ -20,6 +19,7 @@ def test_more_than_one_ref():
     b = b"testing"
 
     with pytest.raises(BadMove, match="testing") as e:
+
         def handle_success(type_, value, tb):
             assert value.args[0] is b
             return type(e).handle_success(e, type_, value, tb)  # super
